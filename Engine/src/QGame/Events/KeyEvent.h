@@ -15,6 +15,7 @@ namespace QGame {
 		KeyEvent(int keycode):m_KeyCode(keycode){}
 		int m_KeyCode;
 	};
+
 	class GAME_API KeyPressedEvent :public KeyEvent {
 	public:
 		KeyPressedEvent(int keycode, int repeatCount) :KeyEvent(keycode), m_RepeatCount(repeatCount) {}
@@ -29,14 +30,27 @@ namespace QGame {
 		int m_RepeatCount;
 	};
 
-	class GAME_API KeyReleasedEvent :public KeyEvent {
+	class GAME_API KeyReleaseEvent :public KeyEvent {
 	public:
-		KeyReleasedEvent(int keycode):KeyEvent(keycode) {}
+		KeyReleaseEvent(int keycode):KeyEvent(keycode) {}
 		std::string ToString()const override {
 			std::stringstream ss;
-			ss << "KeyReleasedEvent: " << m_KeyCode;
+			ss << "KeyReleaseEvent: " << m_KeyCode;
 			return ss.str();
 		}
-		EVENT_CLASS_TYPE(KeyReleased)
+		EVENT_CLASS_TYPE(KeyRelease)
+	};
+
+	class GAME_API KeyTypeEvent :public KeyEvent {
+	public:
+		KeyTypeEvent(int keycode) :KeyEvent(keycode) {}
+		
+		std::string ToString()const override {
+			std::stringstream ss;
+			ss << "KeyTypeEvent: " << m_KeyCode ;
+			return ss.str();
+		}
+		EVENT_CLASS_TYPE(KeyType)
+	
 	};
 }

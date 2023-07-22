@@ -62,15 +62,15 @@ namespace QGame {
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class GAME_API MouseButtonReleasedEvent :public MouseButtonEvent {
+	class GAME_API MouseButtonReleaseEvent :public MouseButtonEvent {
 	public:
-		MouseButtonReleasedEvent(int button):MouseButtonEvent(button){}
+		MouseButtonReleaseEvent(int button):MouseButtonEvent(button){}
 		std::string ToString()const override {
 			std::stringstream ss;
-			ss << "MouseButtonReleasedEvent: " << m_Button;
+			ss << "MouseButtonReleaseEvent: " << m_Button;
 			return ss.str();
 		}
-		EVENT_CLASS_TYPE(MouseButtonReleased)
+		EVENT_CLASS_TYPE(MouseButtonRelease)
 	};
 
 }

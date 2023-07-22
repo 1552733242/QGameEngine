@@ -11,8 +11,9 @@ namespace QGame {
 	enum class EventType {
 		None = 0,
 		WindowClose,WindowResize,WindowFocus,WindowLostFocus,WindowMoved,
-		AppTick,AppUpdate,AppRender,KeyPressed,KeyReleased,
-		MouseButtonPressed,MouseButtonReleased,MouseMoved,MouseSroclled
+		AppTick,AppUpdate,AppRender,
+		KeyPressed,KeyRelease,KeyType,
+		MouseButtonPressed,MouseButtonRelease,MouseMoved,MouseSroclled
 	};
 	enum EventCategory {
 		None =0,
@@ -40,6 +41,7 @@ namespace QGame {
 		inline bool IsInCategory(EventCategory category) {
 			return GetCategoryFlags() & category;
 		}
+		inline bool IsHandled() { return m_Handled; }
 	protected:
 		bool m_Handled = false;//
 	};

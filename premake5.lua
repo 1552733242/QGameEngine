@@ -10,12 +10,18 @@ workspace "QGameEngine"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 
+
 IncludeDir = {}
 LibDir = {}
-IncludeDir["GLAD"] = "Engine/vendor/GLAD/include"
-IncludeDir["GLFW"] = "Engine/vendor/GLFW/include"
-LibDir["GLFW"] = "Engine/vendor/GLFW"
-LibDir["GLAD"] = "Engine/vendor/GLAD"
+IncludeDir["spdlog"] = "%{prj.name}/vendor/spdlog/include"
+IncludeDir["GLAD"] = "%{prj.name}/vendor/GLAD/include"
+IncludeDir["GLFW"] = "%{prj.name}/vendor/GLFW/include"
+IncludeDir["imgui"] = "%{prj.name}/vendor_src/imgui"
+LibDir["GLFW"] = "%{prj.name}/vendor/GLFW"
+LibDir["GLAD"] = "%{prj.name}/vendor/GLAD"
+
+
+
 
 project "Engine"
 	
@@ -34,11 +40,14 @@ project "Engine"
 	files{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor_src/imgui/imgui*.cpp",
+		"%{prj.name}/vendor_src/imgui/imgui*.h",
 	}
 
 	includedirs{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.imgui}",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.GLAD}",
 	}
@@ -48,8 +57,7 @@ project "Engine"
 	}
 
 	links{
-		
-		"glfw3_mt.lib",
+		"glfw3.lib",
 		"glad.lib",
 		"opengl32.lib"
 	}
@@ -68,12 +76,15 @@ project "Engine"
 
 	filter "configurations:Debug"
 		defines "QG_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
     filter "configurations:Release"
 		defines "QG_RELEASE"
+		buildoptions "/MD"
 		symbols "On"
 	filter "configurations:Dist"
 		defines "QG_DIST"
+		buildoptions "/MD"
 		symbols "On"
 
 project "Sandbox"
@@ -111,11 +122,14 @@ project "Sandbox"
 		
 	filter "configurations:Debug"
 		defines "QG_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
     filter "configurations:Release"
 		defines "QG_RELEASE"
+		buildoptions "/MD"
 		symbols "On"
 	filter "configurations:Dist"
 		defines "QG_DIST"
+		buildoptions "/MD"
 		symbols "On"
 
