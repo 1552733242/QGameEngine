@@ -1,9 +1,8 @@
 #include"qgpch.h"
 
-#include"glad/glad.h"
 #include "Appliccation.h"
 #include"Input.h"
-
+#include"glad/glad.h"
 namespace QGame {
 	
 	Application* Application::s_Instance = nullptr;
@@ -12,6 +11,9 @@ namespace QGame {
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(QG_BIND_EVENT_FN(Application::OnEvent));
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushLayer(m_ImGuiLayer);
 	}
 
 	Application::~Application()
@@ -24,12 +26,20 @@ namespace QGame {
 		while (m_Running) {
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
-			
-			for (auto it : m_LayerStack)
-				it->OnUpdate();
-			m_Window->OnUpdate();
 
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
+		
+
+			m_ImGuiLayer->Begin();
 			
+			
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			
+			m_ImGuiLayer->End();
+
+			m_Window->OnUpdate();
 		}
 	}
 

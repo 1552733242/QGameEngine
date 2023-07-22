@@ -2,7 +2,8 @@
 #include"Core.h"
 #include"Window.h"
 #include"LayerStack.h"
-#include"Events/AppliccationEvent.h"
+#include"QGame/ImGui/ImGuiLayer.h"
+#include"QGame/Events/AppliccationEvent.h"
 
 namespace QGame {
 
@@ -22,6 +23,7 @@ namespace QGame {
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<Window>m_Window;
+		ImGuiLayer*m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		static Application* s_Instance;

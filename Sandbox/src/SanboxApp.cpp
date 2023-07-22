@@ -19,7 +19,6 @@ class Sanbox :public QGame::Application {
 public:
 	Sanbox() {
 		PushLayer(new ExampleLayer());
-		PushLayer(new QGame::ImGuiLayer());
 	}
 	~Sanbox() {}
 };

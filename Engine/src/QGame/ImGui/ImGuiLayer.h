@@ -12,20 +12,11 @@ namespace QGame {
 	public:
 		ImGuiLayer();
 		~ImGuiLayer();
-		void OnAttach();
-		void OnDetach();
-		void OnUpdate();
-		void OnEvent(Event& event);
-
-	private:
-		bool OnMosueButtonPressedEvent(MouseButtonPressedEvent& e);
-		bool OnMouseButtonReleaseEvent(MouseButtonReleaseEvent& e);
-		bool OnMouseMoveEvent(MouseMoveEvent& e);
-		bool OnMouseScrolledEvent(MouseScrolledEvent& e);
-		bool OnKeyPressedEvent(KeyPressedEvent& e);
-		bool OnKeyReleaseEvent(KeyReleaseEvent& e);
-		bool OnKeyTypeEvent(KeyTypeEvent& e);
-		bool OnWindowResizeEvent(WindowResizeEvent& e);
+		virtual void OnAttach()override;
+		virtual void OnDetach()override;
+		virtual void OnImGuiRender()override;
+		void Begin();
+		void End();
 
 	private: 
 		float m_Time = 0.f;

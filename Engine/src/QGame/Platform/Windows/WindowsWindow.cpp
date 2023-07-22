@@ -11,7 +11,8 @@ namespace QGame {
 	static bool s_GLFWInitialized = false;
 	static void GLFWErrorCallback(int error ,const char* desciption) 
 	{
-		QG_CORE_ERROR("GLFW Error {0}", error, desciption);
+		//glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_FALSE);
+		QG_CORE_ERROR("GLFW Error {0} {1}", error, desciption);
 	}
 	Window* Window::Create(const WindowProps& props) 
 	{
