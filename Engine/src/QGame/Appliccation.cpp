@@ -1,9 +1,8 @@
 #include"qgpch.h"
-extern "C" {
-#include"glad/glad.h"
-}
-#include "Appliccation.h"
 
+#include"glad/glad.h"
+#include "Appliccation.h"
+#include"Input.h"
 
 namespace QGame {
 	
@@ -21,15 +20,7 @@ namespace QGame {
 
 	void Application::Run()
 	{
-		WindowResizeEvent e(1200, 720);
-
-		if (e.IsInCategory(EventCategoryApplication)) {
-			QG_TRACE(e);
-		}
-		if (e.IsInCategory(EventCategoryInput)) {
-			QG_TRACE(e);
-		}
-
+	
 		while (m_Running) {
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
@@ -37,6 +28,8 @@ namespace QGame {
 			for (auto it : m_LayerStack)
 				it->OnUpdate();
 			m_Window->OnUpdate();
+
+			
 		}
 	}
 

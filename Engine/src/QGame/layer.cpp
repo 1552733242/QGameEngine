@@ -1,5 +1,5 @@
 #include"qgpch.h"
-#include"layer.h"
+#include"Layer.h"
 
 
 namespace QGame {

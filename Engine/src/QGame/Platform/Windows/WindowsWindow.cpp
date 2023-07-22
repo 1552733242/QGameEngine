@@ -1,8 +1,7 @@
 #include"qgpch.h"
-extern "C" {
 #include"glad/glad.h"
-}
 #include"QGame/Log.h"
+#include"QGame/Core.h"
 #include "WindowsWindow.h"
 #include"QGame/Events/AppliccationEvent.h"
 #include"QGame/Events/KeyEvent.h"

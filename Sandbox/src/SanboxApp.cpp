@@ -7,10 +7,10 @@ public:
 
 	}
 	void OnUpdate()override {
-		
+	
 	}
 	void OnEvent(QGame::Event& event)override {
-		
+	
 	}
 };
 

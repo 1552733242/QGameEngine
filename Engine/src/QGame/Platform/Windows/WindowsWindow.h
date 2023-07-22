@@ -20,7 +20,7 @@ namespace QGame {
 
 		unsigned int GetWidth() const override { return m_Data.Width; }
 		unsigned int GetHeight() const override { return m_Data.Height; }
-
+		inline virtual void* GetNativeWindow() { return m_Window; }
 		void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override; // 设置是否开启垂直同步 VSync = 垂直同步
 		bool IsVSync() const override;

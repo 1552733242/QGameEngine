@@ -1,6 +1,7 @@
 workspace "QGameEngine"
 	architecture "x64"
 	
+	startproject "SandBox"
 	configurations
 	{
 		"Debug",
@@ -29,6 +30,7 @@ project "Engine"
 	
 	kind "SharedLib"
 	
+	staticruntime "off"
 	language "C++"
 
 	targetdir("bin/" .. outputdir .. "/%{prj.name}")
@@ -63,7 +65,6 @@ project "Engine"
 	}
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "10.0"
 
 		defines{
@@ -74,23 +75,23 @@ project "Engine"
 			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
 		}
 
-	filter "configurations:Debug"
+		filter "configurations:Debug"
 		defines "QG_DEBUG"
-		buildoptions "/MDd"
+		runtime	"Debug"
 		symbols "On"
     filter "configurations:Release"
 		defines "QG_RELEASE"
-		buildoptions "/MD"
+		runtime	"Release"
 		symbols "On"
 	filter "configurations:Dist"
 		defines "QG_DIST"
-		buildoptions "/MD"
+		runtime	"Release"
 		symbols "On"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
-	
+	staticruntime "off"
 	language "C++"
 
 	targetdir("bin/" .. outputdir .. "/%{prj.name}")
@@ -111,7 +112,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "10.0"
 
 		defines{
@@ -122,14 +122,14 @@ project "Sandbox"
 		
 	filter "configurations:Debug"
 		defines "QG_DEBUG"
-		buildoptions "/MDd"
+		runtime	"Debug" 
 		symbols "On"
     filter "configurations:Release"
 		defines "QG_RELEASE"
-		buildoptions "/MD"
+		runtime	"Release"
 		symbols "On"
 	filter "configurations:Dist"
 		defines "QG_DIST"
-		buildoptions "/MD"
+		runtime	"Release"
 		symbols "On"
 

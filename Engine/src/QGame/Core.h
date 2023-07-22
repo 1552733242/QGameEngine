@@ -9,10 +9,15 @@
 #error Game only support Windows!;
 #endif //  HZ_PLATFORM_WINDOWS
 
+#ifdef QG_DEBUG
+#define GAME_ENABLE_ASSERTS
+#endif // QG_DEBUG
+
+
 
 #ifdef GAME_ENABLE_ASSERTS
-#define GAME_ASSERT(x,...){ if( !(x) ){ GAME_ERROR("Assertion Failed: {0}",__VA_ARGS__);__debugbreak(); } }
-#define GAME_CORE_ASSERT(x, ... ){ if( !(x) ){ GAME_CORE_ERROR("Assertion Failed: {0}",__VA_ARGS__);__debugbreak(); } }
+#define GAME_ASSERT(x,...){ if( !(x) ){ QG_ERROR("Assertion Failed: {0}",__VA_ARGS__);__debugbreak(); } }
+#define GAME_CORE_ASSERT(x, ... ){ if( !(x) ){ QG_CORE_ERROR("Assertion Failed: {0}",__VA_ARGS__);__debugbreak(); } }
 
 #else 
 #define GAME_ASSERT(x,...)
