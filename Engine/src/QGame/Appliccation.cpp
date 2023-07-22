@@ -6,12 +6,13 @@ extern "C" {
 
 
 namespace QGame {
-	#define BIND_EVENT_FN(x) std::bind(&Application::x,this,std::placeholders::_1)
+	
+	Application* Application::s_Instance = nullptr;
 	Application::Application()
 	{
-		
+		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window->SetEventCallback(QG_BIND_EVENT_FN(Application::OnEvent));
 	}
 
 	Application::~Application()
@@ -32,6 +33,9 @@ namespace QGame {
 		while (m_Running) {
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+			
+			for (auto it : m_LayerStack)
+				it->OnUpdate();
 			m_Window->OnUpdate();
 		}
 	}
@@ -39,10 +43,13 @@ namespace QGame {
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		QG_CORE_INFO("{0}", e);
-
-
+		dispatcher.Dispatch<WindowCloseEvent>(QG_BIND_EVENT_FN(Application::OnWindowClose));
+		
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
+			(*--it)->OnEvent(e);
+			if (e.IsHandled())
+				break;
+		}
 	}
 	bool Application::OnWindowClose(WindowCloseEvent& e) {
 			
@@ -50,6 +57,17 @@ namespace QGame {
 		
 		return true;
 	}
+
+
+	void Application::PushLayer(Layer* layer) {
+		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
+	}
+	void Application::PushOverlay(Layer* layer) {
+		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
+	}
+
 
 }
 

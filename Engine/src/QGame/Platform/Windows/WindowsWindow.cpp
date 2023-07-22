@@ -74,6 +74,7 @@ namespace QGame {
 		SetVSync(true);	
 
 		int res = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		GAME_ASSERT(res, "GLAD Counld find Adresss");
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -102,7 +103,7 @@ namespace QGame {
 					}
 					case GLFW_RELEASE:
 					{
-						KeyReleasedEvent event(key);
+						KeyReleaseEvent event(key);
 						data.EventCallback(event);
 						break;
 					}
@@ -114,6 +115,14 @@ namespace QGame {
 					}
 				}
 			});
+
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			KeyTypeEvent event(keycode);
+			data.EventCallback(event);
+			});
+
+
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window,int button,int action,int mods) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 			switch (action)
@@ -126,7 +135,7 @@ namespace QGame {
 				}
 				case GLFW_RELEASE:
 				{
-					MouseButtonReleasedEvent event(button);
+					MouseButtonReleaseEvent event(button);
 					data.EventCallback(event);
 					break;
 				}
@@ -143,6 +152,9 @@ namespace QGame {
 			MouseMoveEvent event((float)xPos, (float)yPos);
 			data.EventCallback(event);
 			});
+		
+
+
 	}
 
 	void WindowsWindow::Shutdown()
