@@ -1,8 +1,9 @@
 #include"qgpch.h"
 #include"ImGuiLayer.h"
 #include"QGame/Appliccation.h"
-#include"backends/imgui_impl_glfw.h"
 #include"backends/imgui_impl_opengl3.h"
+#include"backends/imgui_impl_glfw.h"
+
 
 
 #include"glad/glad.h"
@@ -55,8 +56,8 @@ namespace QGame {
 
 	void ImGuiLayer::OnImGuiRender()
 	{
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
+		/*static bool show = true;
+		ImGui::ShowDemoWindow(&show);*/
 
 
 	}
