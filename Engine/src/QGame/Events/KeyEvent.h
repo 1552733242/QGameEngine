@@ -1,5 +1,5 @@
 #pragma once;
-
+#include"qgpch.h"
 #include"Event.h"
 
 

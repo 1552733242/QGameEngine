@@ -2,6 +2,7 @@
 
 
 #include"QGame/Window.h"
+#include"QGame/Renderer/GraphicsContext.h"
 #include<GLFW/glfw3.h>
 
 
@@ -33,6 +34,9 @@ namespace QGame {
 
 	private:
 		GLFWwindow* m_Window;
+
+		GraphicsContext* m_Context;
+
 		struct WindowData
 		{
 			std::string Title;

@@ -1,10 +1,16 @@
 #pragma once
 #ifdef  GAME_PLATFORM_WINDOWS
+
+#if 0 
 #ifdef GAME_BUILD_DLL
-#define GAME_API __declspec(dllexport)
+	#define GAME_API __declspec(dllexport)
 #else 
-#define GAME_API __declspec(dllimport)
-#endif // GAME_BUILD_DLL
+	#define GAME_API __declspec(dllimport)
+#endif // GAME_BUILD_DL
+#else 
+	#define GAME_API
+#endif
+
 #else
 #error Game only support Windows!;
 #endif //  HZ_PLATFORM_WINDOWS

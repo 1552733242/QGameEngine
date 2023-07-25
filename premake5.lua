@@ -28,12 +28,10 @@ LibDir["GLAD"] = "%{prj.name}/vendor/GLAD"
 project "Engine"
 	
 	location "Engine"
-	
-	kind "SharedLib"
-	
-	staticruntime "off"
+	kind "StaticLib"
 	language "C++"
-
+	cppdialect "C++17"
+	staticruntime "on"
 	targetdir("bin/" .. outputdir .. "/%{prj.name}")
 	objdir   ("Build/" .. outputdir .. "/%{prj.name}")
 
@@ -61,40 +59,41 @@ project "Engine"
 	}
 
 	links{
-		"glfw3.lib",
+		"glfw3_mt.lib",
 		"glad.lib",
 		"opengl32.lib"
 	}
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "10.0"
-
 		defines{
 			"GAME_PLATFORM_WINDOWS",
 			"GAME_BUILD_DLL"
 		}
 		postbuildcommands{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox\"") 
 		}
 
 		filter "configurations:Debug"
 		defines "QG_DEBUG"
 		runtime	"Debug"
-		symbols "On"
+		symbols "on"
+
+
     filter "configurations:Release"
 		defines "QG_RELEASE"
 		runtime	"Release"
-		symbols "On"
+		symbols "on"
 	filter "configurations:Dist"
 		defines "QG_DIST"
 		runtime	"Release"
-		symbols "On"
+		symbols "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
-	staticruntime "off"
+	staticruntime "on"
 	language "C++"
+	cppdialect "C++17"
 
 	targetdir("bin/" .. outputdir .. "/%{prj.name}")
 	objdir   ("Build/" .. outputdir .. "/%{prj.name}")
@@ -114,7 +113,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "10.0"
 
 		defines{
@@ -126,13 +124,13 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "QG_DEBUG"
 		runtime	"Debug" 
-		symbols "On"
+		symbols "on"
     filter "configurations:Release"
 		defines "QG_RELEASE"
 		runtime	"Release"
-		symbols "On"
+		symbols "on"
 	filter "configurations:Dist"
 		defines "QG_DIST"
 		runtime	"Release"
-		symbols "On"
+		symbols "on"
 

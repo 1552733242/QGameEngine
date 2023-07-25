@@ -4,7 +4,7 @@
 #include"LayerStack.h"
 #include"QGame/ImGui/ImGuiLayer.h"
 #include"QGame/Events/AppliccationEvent.h"
-
+#include"QGame/Renderer/Shader.h"
 namespace QGame {
 
 	class GAME_API Application
@@ -27,6 +27,11 @@ namespace QGame {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		static Application* s_Instance;
+		
+
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader>m_Shader;
+	
 	};
 	Application* CreateApplication();
 }

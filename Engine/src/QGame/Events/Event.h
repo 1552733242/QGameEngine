@@ -1,7 +1,7 @@
 #pragma once
 
 
-
+#include"qgpch.h"
 #include"../Core.h"
 
 
