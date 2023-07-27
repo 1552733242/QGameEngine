@@ -1,9 +1,9 @@
 #include"qgpch.h"
 
 #include "Appliccation.h"
-#include"Input.h"
-#include"glad/glad.h"
-#include"QGame/Renderer/Shader.h"
+#include "Input.h"
+#include "glad/glad.h"
+
 namespace QGame {
 	
 	Application* Application::s_Instance = nullptr;
@@ -37,6 +37,27 @@ namespace QGame {
 		glGenBuffers(1, &m_IndexBuffer);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+		std::string vertexSrc = R"(
+	#version 330 core
+	
+	layout(location = 0) in vec3 a_Position;
+	
+	void main(){
+		
+
+
+	}
+
+
+
+
+
+
+
+)";
+
+		m_Shader = std::make_unique<Shader>();
 	}
 
 	Application::~Application()	

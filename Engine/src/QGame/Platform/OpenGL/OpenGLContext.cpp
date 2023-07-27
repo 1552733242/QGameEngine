@@ -28,7 +28,7 @@ namespace QGame {
 	
 	}
 
-	void OpenGLContext::SwapBuffers()
+	void OpenGLContext::SwapBuffers() 
 	{
 		glfwSwapBuffers(m_WindowHandle); 
 	}
