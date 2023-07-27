@@ -2,12 +2,14 @@
 
 #include "Appliccation.h"
 #include "Input.h"
-#include "glad/glad.h"
+#include "QGame/Renderer/Renderer.h"
 
 namespace QGame {
 	
 	Application* Application::s_Instance = nullptr;
-	Application::Application()
+
+
+	Application::Application() :m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		GAME_CORE_ASSERT(!s_Instance, "Application already exit");
 		s_Instance = this;
@@ -17,47 +19,67 @@ namespace QGame {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushLayer(m_ImGuiLayer);
 
-		glGenVertexArrays(1,&m_VertexArray);
-		glBindVertexArray(m_VertexArray);
 
-		glGenBuffers(1,&m_VertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 
-		float vertices[3 * 3]{
-			-0.5f,  -0.5f,  0.0f,
-			 0.5f,  -0.5f,  0.0f,
-			 0.0f,   0.5f,  0.0f
+		float vertices[3 * 7]{
+			-0.5f,  -0.5f,  0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+			 0.5f,  -0.5f,  0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			 0.0f,   0.5f,  0.0f, 1.0f, 1.0f, 0.0f, 1.0f
 		};				  
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-
-
 		unsigned int indices[] = { 0,1,2 };
-		glGenBuffers(1, &m_IndexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		m_VertexArray.reset(VertexArray::Create());
+		std::shared_ptr<VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		std::shared_ptr<IndexBuffer>indexBuffer;
+		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(vertices)));
+		m_SquareVA.reset(VertexArray::Create());
+		BufferLayout layout = {
+			{ShaderDataType::Float3, "a_Position"},
+			{ShaderDataType::Float4, "a_Color"},
+		};
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
+		m_VertexArray->SetIndexBuffer(indexBuffer);
+
+		
+
 
 		std::string vertexSrc = R"(
 	#version 330 core
 	
 	layout(location = 0) in vec3 a_Position;
-	
+	layout(location = 1) in vec4 a_Color;
+
+	uniform mat4 u_ViewProjection;
+
+	out vec3 v_Position;
+	out vec4 v_Color;
 	void main(){
 		
 
+		v_Position = a_Position;
+		v_Color = a_Color;
 
+		gl_Position = u_ViewProjection * vec4(a_Position,1.0);
 	}
-
-
-
-
-
+)";
+		std::string fragmentSrc = R"(
+	#version 330 core
+	in vec3 v_Position;
+	in vec4 v_Color;
+	layout(location = 0) out vec4 color;
+	
+	void main(){
+		color = v_Color;
+	}
 
 
 )";
 
-		m_Shader = std::make_unique<Shader>();
+
+		m_Shader = std::make_unique<Shader>(vertexSrc, fragmentSrc);
+
+
 	}
 
 	Application::~Application()	
@@ -68,23 +90,31 @@ namespace QGame {
 	{
 	
 		while (m_Running) {
-			glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
 			
-			//glViewport(0, 0, s_Instance->GetWindow().GetWidth(), s_Instance->GetWindow().GetHeight());
-			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			RendererCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+
+			RendererCommand::Clear();
+
+
+			Renderer::BeginScene(m_Camera);
+
+			m_Shader->Bind();
+			m_Shader->UploadUniformMat4("u_ViewProjection", m_Camera.GetViewProjectionMatrix());
+			Renderer::Submit(m_VertexArray);
+
+
+
+			Renderer::EndScene();
+
+
+
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
-		
 
 			m_ImGuiLayer->Begin();
-			
-			
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
-			
 			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();

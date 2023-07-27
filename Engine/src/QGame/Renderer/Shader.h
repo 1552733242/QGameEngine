@@ -1,6 +1,6 @@
 #pragma once
-#include"qgpch.h"
 
+#include "D:\QGameEngine\QGameEngine\Engine\vendor_src\glm\glm\glm.hpp"
 namespace QGame {
 
 	class Shader {
@@ -11,10 +11,11 @@ namespace QGame {
 		void Bind()const;
 		void UnBind()const;
 
+		void UploadUniformMat4(const std::string& name,const glm::mat4& matrix);
 	private:
 		
 		uint32_t m_RendererID;
 	};
-
+	
 
 }

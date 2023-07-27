@@ -1,10 +1,14 @@
 #pragma once
-#include"Core.h"
-#include"Window.h"
-#include"LayerStack.h"
-#include"QGame/ImGui/ImGuiLayer.h"
-#include"QGame/Events/AppliccationEvent.h"
-#include"QGame/Renderer/Shader.h"
+#include "Core.h"
+#include "Window.h"
+#include "LayerStack.h"
+#include "QGame/ImGui/ImGuiLayer.h"
+#include "QGame/Events/AppliccationEvent.h"
+#include "QGame/Renderer/Shader.h"
+#include "QGame/Renderer/Buffer.h"
+#include "QGame/Renderer/VertexArray.h"
+#include "QGame/Renderer/OrthgraphicCamera.h"
+
 namespace QGame {
 
 	class GAME_API Application
@@ -29,9 +33,12 @@ namespace QGame {
 		static Application* s_Instance;
 		
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
-		std::unique_ptr<Shader>m_Shader;
 	
+		std::shared_ptr<Shader>m_Shader;
+		std::shared_ptr<VertexArray>m_VertexArray;
+		std::shared_ptr<VertexArray>m_SquareVA;
+
+		OrthgraphicCamera m_Camera;
 	};
 	Application* CreateApplication();
 }
