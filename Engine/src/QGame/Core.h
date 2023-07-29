@@ -1,4 +1,7 @@
 #pragma once
+
+#include<memory>
+
 #ifdef  GAME_PLATFORM_WINDOWS
 
 #if 0 
@@ -35,3 +38,13 @@
 #define BIT(x) (1 << x)
 
 #define QG_BIND_EVENT_FN(fn) std::bind(&fn,this,std::placeholders::_1)
+
+
+namespace QGame {
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+
+}

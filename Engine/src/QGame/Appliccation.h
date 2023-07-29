@@ -4,21 +4,15 @@
 #include "LayerStack.h"
 #include "QGame/ImGui/ImGuiLayer.h"
 #include "QGame/Events/AppliccationEvent.h"
-#include "QGame/Renderer/Shader.h"
-#include "QGame/Renderer/Buffer.h"
-#include "QGame/Renderer/VertexArray.h"
-#include "QGame/Renderer/OrthgraphicCamera.h"
-
+#include "QGame/Core/Timestep.h"
 namespace QGame {
 
-	class GAME_API Application
+	class Application
 	{
 	public:
 		Application();
 		~Application();
 		void Run();
-
-
 		void OnEvent(Event& e);
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
@@ -26,19 +20,14 @@ namespace QGame {
 		inline static Application& Get() { return *s_Instance; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+	private:
 		std::unique_ptr<Window>m_Window;
 		ImGuiLayer*m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		float m_LastFramTime = 0.0f;
+	private:
 		static Application* s_Instance;
-		
-
-	
-		std::shared_ptr<Shader>m_Shader;
-		std::shared_ptr<VertexArray>m_VertexArray;
-		std::shared_ptr<VertexArray>m_SquareVA;
-
-		OrthgraphicCamera m_Camera;
 	};
 	Application* CreateApplication();
 }

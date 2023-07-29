@@ -19,6 +19,8 @@ IncludeDir["GLAD"] = "%{prj.name}/vendor/GLAD/include"
 IncludeDir["GLFW"] = "%{prj.name}/vendor/GLFW/include"
 IncludeDir["imgui"] = "%{prj.name}/vendor_src/imgui"
 IncludeDir["glm"] = "%{prj.name}/vendor_src/glm"
+IncludeDir["stb_image"] = "%{prj.name}/vendor_src/stb_image"
+
 LibDir["GLFW"] = "%{prj.name}/vendor/GLFW"
 LibDir["GLAD"] = "%{prj.name}/vendor/GLAD"
 
@@ -43,6 +45,8 @@ project "Engine"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor_src/imgui/imgui*.cpp",
 		"%{prj.name}/vendor_src/imgui/imgui*.h",
+		"%{prj.name}/vendor_src/stb_image/**.h",
+		"%{prj.name}/vendor_src/stb_image/**.cpp",
 	}
 
 	includedirs{
@@ -52,6 +56,7 @@ project "Engine"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.GLAD}",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}",
 	}
 	libdirs{
 		"%{LibDir.GLFW}",
@@ -104,7 +109,6 @@ project "Sandbox"
 
 	includedirs{
 		"Engine/vendor/spdlog/include",
-		"%{IncludeDir.glm}",
 		"Engine/src",
 	}
 

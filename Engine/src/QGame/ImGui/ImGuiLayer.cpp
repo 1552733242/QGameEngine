@@ -5,7 +5,6 @@
 #include"backends/imgui_impl_glfw.h"
 
 
-
 #include"glad/glad.h"
 #include"GLFW/glfw3.h"
 
@@ -56,14 +55,7 @@ namespace QGame {
 
 	void ImGuiLayer::OnImGuiRender()
 	{
-		/*static bool show = true;
-		ImGui::ShowDemoWindow(&show);*/
 
-		ImGui::Begin("test");
-		
-		ImGui::Text("hello ");
-		
-		ImGui::End();
 	}
 
 
