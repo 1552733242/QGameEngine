@@ -5,15 +5,19 @@
 
 namespace QGame {
 
-	class OrthgraphicCamera 
+	class OrthographicCamera 
 	{
 	public:
-		OrthgraphicCamera(float left, float right, float bottom, float top);
+		OrthographicCamera(float left, float right, float bottom, float top);
+
+		void SetProjection(float left, float right, float bottom, float top);
 
 		inline const glm::vec3& GetPosition()const { return m_Position; }
 		inline float GetRotation()const { return m_Rotation; }
 		void SetPosition(const glm::vec3& position) { m_Position = position;  RecalculateViewMatrix(); }
 		void SetRotation(float rotation) {  m_Rotation = rotation; RecalculateViewMatrix(); }//仅仅绕Z轴的旋转(用于2D)
+
+
 		const glm::mat4& GetProjectionMatrix()const { return m_ProjectionMatrix; }
 		const glm::mat4& GetViewMatrix()const { return m_ViewMatrix; }
 		const glm::mat4& GetViewProjectionMatrix()const { return m_ViewProjectionMatrix; }

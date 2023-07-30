@@ -105,11 +105,14 @@ project "Sandbox"
 	files{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/shaders/**"
 	}
 
 	includedirs{
 		"Engine/vendor/spdlog/include",
 		"Engine/src",
+		"Engine/vendor_src/glm",
+		"Engine/vendor_src/imgui",
 	}
 
 	links{

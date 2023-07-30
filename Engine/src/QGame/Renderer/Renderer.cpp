@@ -11,7 +11,12 @@ namespace QGame {
 		RendererCommand::Init();
 	}
 
-	void Renderer::BeginScene(OrthgraphicCamera& camera)
+	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
+	{
+		RendererCommand::SetViewport(0, 0, width, height);
+	}
+
+	void Renderer::BeginScene(const OrthographicCamera& camera)
 	{
 		m_SceneData->ViewPojectionMatrix = camera.GetViewProjectionMatrix();
 	}

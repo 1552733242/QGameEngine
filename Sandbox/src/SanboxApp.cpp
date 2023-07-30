@@ -5,8 +5,7 @@
 #include "QGame/Platform/OpenGL/OpenGlShader.h"
 class ExampleLayer :public QGame::Layer { 
 public:
-	ExampleLayer() :Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f),
-		m_CameraPosition(0.0f)
+	ExampleLayer() :Layer("Example"), m_CameraController(1280.0f / 720.0f) 
 	{
 		
 		std::string vertexSrc = R"(
@@ -39,7 +38,7 @@ public:
 		color = v_Color;
 	}
 )";
-		m_Shader.reset(QGame::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = QGame::Shader::Create("1", vertexSrc, fragmentSrc);
 		float vertices[3 * 7]{
 		-0.5f,  -0.5f,  0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
 		 0.5f,  -0.5f,  0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
@@ -92,7 +91,7 @@ public:
 	}
 )";
 
-		m_SquareSD.reset(QGame::Shader::Create(squreVertexSrc, squreFragmentSrc));
+		m_SquareSD = QGame::Shader::Create("SquareSD", squreVertexSrc, squreFragmentSrc);
 		m_SquareVA.reset(QGame::VertexArray::Create());
 		QGame::BufferLayout squreLayout = {
 		{QGame::ShaderDataType::Float3, "a_Position"},
@@ -118,37 +117,8 @@ public:
 
 
 
-		std::string textureVertexSrc = R"(
-	#version 330 core
-	
-	layout(location = 0) in vec3 a_Position;
-	layout(location = 1) in vec2 a_TexCoord;
 
-	uniform mat4 u_ViewProjection;
-	uniform mat4 u_Transform;
-
-	out vec2 v_TexCoord;
-	void main(){
-		
-		v_TexCoord = a_TexCoord;
-		gl_Position = u_ViewProjection * u_Transform * vec4(a_Position,1.0);
-	}
-)";
-		std::string textureFragmentSrc = R"(
-	#version 330 core
-	
-	layout(location = 0) out vec4 color;
-	
-	in vec2 v_TexCoord;
-	uniform sampler2D u_Texture;
-
-	void main(){
-
-		color = texture(u_Texture, v_TexCoord);
-	}
-)";
-
-		m_TextureSD.reset(QGame::Shader::Create(textureVertexSrc, textureFragmentSrc));
+		m_TextureSD = QGame::Shader::Create("shaders/Texture.glsl");
 		m_Texture = QGame::Texture2D::Create("assets/textures/Checkerboard.png");
 
 		m_ChernoLogoTexture = QGame::Texture2D::Create("assets/textures/ChernoLogo.png");
@@ -167,29 +137,15 @@ public:
 	}
 	void OnUpdate(QGame::Timestep ts)override {
 		
-		if (QGame::Input::IsKeyPressed(QG_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-		else if (QGame::Input::IsKeyPressed(QG_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed * ts;
-		
-		if (QGame::Input::IsKeyPressed(QG_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed * ts;
-		else if (QGame::Input::IsKeyPressed(QG_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
-		
-		if (QGame::Input::IsKeyPressed(QG_KEY_A))
-			m_CameraRotation += m_CameraRotationSpeed * ts;
-		if (QGame::Input::IsKeyPressed(QG_KEY_D))
-			m_CameraRotation -= m_CameraRotationSpeed * ts;
+		//Update
+		m_CameraController.OnUpdata(ts);
 
-
+		//Render
 		QGame::RendererCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		QGame::RendererCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
-
-		QGame::Renderer::BeginScene(m_Camera);
+		
+		QGame::Renderer::BeginScene(m_CameraController.GetCamera());
 
 
 		std::dynamic_pointer_cast<QGame::OpenGLShader>(m_SquareSD)->Bind();
@@ -215,7 +171,7 @@ public:
 
 	}
 	void OnEvent(QGame::Event& event)override {
-	
+		m_CameraController.OnEvent(event);
 	}
 	
 private:
@@ -231,14 +187,9 @@ private:
 	QGame::Ref<QGame::VertexArray>m_VertexArray;
 	QGame::Ref<QGame::VertexArray>m_SquareVA;
 
-	QGame::OrthgraphicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 5.0f;
+	QGame::OrthographicCameraController m_CameraController;
 
-	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 180.f;
-
-	glm::vec3 m_SqurePosition;
+	
 	glm::vec3 m_SqureColor = { 0.2f,0.3f,0.8f };
 };
 

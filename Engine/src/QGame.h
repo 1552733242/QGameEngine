@@ -23,6 +23,7 @@
 #include "QGame/Renderer/Texture.h"
 		 
 #include "QGame/Renderer/OrthgraphicCamera.h"
+#include "QGame/OrthographicCameraController.h"
 
 
 //---------EntryPoint---------------//
