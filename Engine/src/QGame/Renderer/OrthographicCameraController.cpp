@@ -1,7 +1,7 @@
-#include"qgpch.h"
-#include"OrthographicCameraController.h"
-#include "Input.h"
-#include "KeyCodes.h"
+#include "qgpch.h"
+#include "QGame/Renderer/OrthographicCameraController.h"
+#include "QGame/Core/Input.h"
+#include "QGame/Core/KeyCodes.h"
 namespace QGame {
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation) :
 	m_AspectRatio(aspectRatio),m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio* m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_Rotation(rotation)

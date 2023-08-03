@@ -1,8 +1,8 @@
 #pragma once
 
-#include"QGame/Core.h"
-#include"QGame/Core/Timestep.h"
-#include"QGame/Events/Event.h"
+#include "QGame/Core/Timestep.h"
+#include "QGame/Core/Core.h"
+#include "QGame/Events/Event.h"
 
 
 namespace QGame {

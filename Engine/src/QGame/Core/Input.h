@@ -1,5 +1,5 @@
 #pragma once
-#include"QGame/Core.h"
+#include "QGame/Core/Core.h"
 
 
 namespace QGame {

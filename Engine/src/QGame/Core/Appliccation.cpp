@@ -1,9 +1,9 @@
-#include"qgpch.h"
-#include "Appliccation.h"
-#include "Input.h"
-#include "Renderer/Renderer.h"
-
+#include "qgpch.h"
 #include <GLFW/glfw3.h>
+#include "QGame/Core/Appliccation.h"
+#include "QGame/Core/Input.h"
+#include "QGame/Renderer/Renderer.h"
+
 
 namespace QGame {
 	

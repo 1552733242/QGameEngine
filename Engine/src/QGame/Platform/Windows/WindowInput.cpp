@@ -1,7 +1,7 @@
-#include"qgpch.h"
-#include"WindowInput.h"
-#include<QGame/Appliccation.h>
-#include"GLFW/glfw3.h"
+#include "qgpch.h"
+#include <GLFW/glfw3.h>
+#include "QGame/Platform/Windows/WindowInput.h"
+#include "QGame/Core/Appliccation.h"
 
 
 namespace QGame {

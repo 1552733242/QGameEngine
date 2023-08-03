@@ -1,12 +1,9 @@
 #pragma once
-#include"QGame/Layer.h"
-#include"QGame/Core.h"
-#include"QGame/Events/KeyEvent.h"
-#include"QGame/Events/MouseEvent.h"
-#include"QGame/Events/AppliccationEvent.h"
-//
-//#include "backends\imgui_impl_opengl3.h"
-//#include "backends\imgui_impl_glfw.h"
+#include "QGame/Core/Layer.h"
+#include "QGame/Core/Core.h"
+#include "QGame/Events/KeyEvent.h"
+#include "QGame/Events/MouseEvent.h"
+#include "QGame/Events/AppliccationEvent.h"
 
 namespace QGame {
 

@@ -1,14 +1,14 @@
 #pragma once
 
-#include "QGame/Appliccation.h"
-#include "QGame/Log.h"
-#include "QGame/Layer.h"
+#include "QGame/Core/Appliccation.h"
+#include "QGame/Core/Log.h"
+#include "QGame/Core/Layer.h"
 		 
 #include "QGame/Core/Timestep.h"
 
-#include "QGame/Input.h"
-#include "QGame/KeyCodes.h"
-#include "QGame/MouseButtonCodes.h"
+#include "QGame/Core/Input.h"
+#include "QGame/Core/KeyCodes.h"
+#include "QGame/Core/MouseButtonCodes.h"
 		 
 #include "QGame/ImGui/ImGuiLayer.h"
 
@@ -23,8 +23,8 @@
 #include "QGame/Renderer/Texture.h"
 		 
 #include "QGame/Renderer/OrthgraphicCamera.h"
-#include "QGame/OrthographicCameraController.h"
+#include "QGame/Renderer/OrthographicCameraController.h"
 
 
 //---------EntryPoint---------------//
-#include "QGame/EntryPoint.h"
+#include "QGame/Core/EntryPoint.h"

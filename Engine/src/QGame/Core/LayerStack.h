@@ -1,6 +1,6 @@
 #pragma once
-#include"QGame/Core.h"
-#include"Layer.h"
+#include "QGame/Core/Core.h"
+#include "QGame/Core/Layer.h"
 
 
 #include<vector>

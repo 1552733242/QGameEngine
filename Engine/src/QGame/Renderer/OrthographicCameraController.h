@@ -15,8 +15,14 @@ namespace QGame {
 
 		void OnUpdata(Timestep ts);
 		void OnEvent(Event& e);
-
+		OrthographicCamera& GetCamera() { return m_Camera; };
 		const OrthographicCamera& GetCamera()const { return m_Camera; } 
+	
+
+		inline float GetZoomLevel()const { return m_ZoomLevel; }
+		inline void SetZoomLevel(float level) { m_ZoomLevel = level; }
+		
+	
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
 		bool OnWindowResized(WindowResizeEvent& e);

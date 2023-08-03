@@ -1,8 +1,8 @@
 #pragma once
 
 
-#include"qgpch.h"
-#include"../Core.h"
+#include "qgpch.h"
+#include "QGame/Core/Core.h"
 
 
 

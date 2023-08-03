@@ -1,12 +1,10 @@
-#include"qgpch.h"
-#include"ImGuiLayer.h"
-#include"QGame/Appliccation.h"
-#include"backends/imgui_impl_opengl3.h"
-#include"backends/imgui_impl_glfw.h"
-
-
-#include"glad/glad.h"
-#include"GLFW/glfw3.h"
+#include "qgpch.h"
+#include "ImGuiLayer.h"
+#include "backends/imgui_impl_opengl3.h"
+#include "backends/imgui_impl_glfw.h"
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
+#include "QGame/Core/Appliccation.h"
 
 namespace QGame {
 

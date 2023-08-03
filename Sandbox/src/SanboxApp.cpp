@@ -1,7 +1,7 @@
-#include"qgpch.h"
-#include<QGame.h>
-#include "D:\QGameEngine\QGameEngine\Engine\vendor_src\imgui\imgui.h"
-#include "D:\QGameEngine\QGameEngine\Engine\vendor_src\glm\glm\gtc\type_ptr.hpp"
+#include "qgpch.h"
+#include <QGame.h>
+#include <imgui.h>
+#include <glm/gtc/type_ptr.hpp>
 #include "QGame/Platform/OpenGL/OpenGlShader.h"
 class ExampleLayer :public QGame::Layer { 
 public:

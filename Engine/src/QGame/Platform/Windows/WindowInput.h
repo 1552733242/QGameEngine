@@ -1,8 +1,6 @@
 #pragma once
 
-//#include"WindowsWindow.h"
-#include<QGame/Input.h>
-
+#include "QGame/Core/Input.h"
 
 namespace QGame {
 	class  GAME_API WindowInput :public Input {

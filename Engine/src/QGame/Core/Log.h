@@ -1,7 +1,7 @@
 #pragma once
-#include"Core.h"
-#include<spdlog/spdlog.h>
-#include<spdlog/fmt/ostr.h>
+#include "QGame/Core/Core.h"
+#include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 namespace QGame {
 
 	class GAME_API Log {

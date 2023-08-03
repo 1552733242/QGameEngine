@@ -1,9 +1,9 @@
 #pragma once
 
 
-#include"QGame/Window.h"
-#include"QGame/Renderer/GraphicsContext.h"
-#include<GLFW/glfw3.h>
+#include <GLFW/glfw3.h>
+#include "QGame/Core/Window.h"
+#include "QGame/Renderer/GraphicsContext.h"
 
 
 
