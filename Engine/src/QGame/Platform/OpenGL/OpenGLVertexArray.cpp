@@ -52,6 +52,8 @@ namespace QGame {
 		vertexBuffer->Bind();
 		uint32_t index = 0;
 		auto const& layout = vertexBuffer->GetLayout();
+
+
 		for (const auto& element : layout) {
 			glEnableVertexAttribArray(index);
 			glVertexAttribPointer(index, element.GetComponentCount(),
@@ -60,6 +62,7 @@ namespace QGame {
 				layout.GetStride(),
 				(const void*)element.Offset);
 			index++;
+			
 		}
 		m_VertexBuffers.push_back(vertexBuffer);
 	}

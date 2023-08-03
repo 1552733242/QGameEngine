@@ -113,6 +113,7 @@ project "Sandbox"
 		"Engine/src",
 		"Engine/vendor_src/glm",
 		"Engine/vendor_src/imgui",
+		"Sandbox/src"
 	}
 
 	links{

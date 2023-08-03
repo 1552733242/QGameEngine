@@ -15,6 +15,7 @@
 
 //---------Render--------------------//		 
 #include "QGame/Renderer/Renderer.h"
+#include "QGame/Renderer/Renderer2D.h"
 #include "QGame/Renderer/RendererCommand.h"
 
 #include "QGame/Renderer/Shader.h"
@@ -25,6 +26,3 @@
 #include "QGame/Renderer/OrthgraphicCamera.h"
 #include "QGame/Renderer/OrthographicCameraController.h"
 
-
-//---------EntryPoint---------------//
-#include "QGame/Core/EntryPoint.h"

@@ -3,6 +3,9 @@
 #include <imgui.h>
 #include <glm/gtc/type_ptr.hpp>
 #include "QGame/Platform/OpenGL/OpenGlShader.h"
+#include "QGame/Core/EntryPoint.h"
+#include "Sanbox2D.h"
+
 class ExampleLayer :public QGame::Layer { 
 public:
 	ExampleLayer() :Layer("Example"), m_CameraController(1280.0f / 720.0f) 
@@ -45,12 +48,12 @@ public:
 		 0.0f,   0.5f,  0.0f, 1.0f, 1.0f, 0.0f, 1.0f
 		};
 		unsigned int indices[] = { 0,1,2 };
-		m_VertexArray.reset(QGame::VertexArray::Create());
+		m_VertexArray = QGame::VertexArray::Create();
 		QGame::Ref<QGame::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(QGame::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = QGame::VertexBuffer::Create(vertices, sizeof(vertices));
 		QGame::Ref<QGame::IndexBuffer>indexBuffer;
-		indexBuffer.reset(QGame::IndexBuffer::Create(indices, sizeof(vertices)));
-		m_SquareVA.reset(QGame::VertexArray::Create());
+		indexBuffer = QGame::IndexBuffer::Create(indices, sizeof(vertices));
+		m_SquareVA = QGame::VertexArray::Create();
 		QGame::BufferLayout layout = {
 			{QGame::ShaderDataType::Float3, "a_Position"},
 			{QGame::ShaderDataType::Float4, "a_Color"},
@@ -92,7 +95,7 @@ public:
 )";
 
 		m_SquareSD = QGame::Shader::Create("SquareSD", squreVertexSrc, squreFragmentSrc);
-		m_SquareVA.reset(QGame::VertexArray::Create());
+		m_SquareVA = QGame::VertexArray::Create();
 		QGame::BufferLayout squreLayout = {
 		{QGame::ShaderDataType::Float3, "a_Position"},
 			{QGame::ShaderDataType::Float2,"a_TextCoord"}
@@ -105,10 +108,10 @@ public:
 		};
 		unsigned int squreIndices[] = { 0,1,2, 2,3,0 };
 		QGame::Ref<QGame::VertexBuffer> squreVertexBuffer;
-		squreVertexBuffer.reset(QGame::VertexBuffer::Create(squreVertexs, sizeof(squreVertexs)));
+		squreVertexBuffer = QGame::VertexBuffer::Create(squreVertexs, sizeof(squreVertexs));
 		QGame::Ref<QGame::IndexBuffer> squreIndexBuffer;
 		
-		squreIndexBuffer.reset(QGame::IndexBuffer::Create(squreIndices, sizeof(squreIndices)));
+		squreIndexBuffer = QGame::IndexBuffer::Create(squreIndices, sizeof(squreIndices));
 		squreVertexBuffer->SetLayout(squreLayout);
 		m_SquareVA->AddVertexBuffer(squreVertexBuffer);
 		m_SquareVA->SetIndexBuffer(squreIndexBuffer);
@@ -125,7 +128,7 @@ public:
 		
 
 		std::dynamic_pointer_cast<QGame::OpenGLShader>(m_TextureSD)->Bind();
-		std::dynamic_pointer_cast<QGame::OpenGLShader>(m_TextureSD)->UploadUinformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<QGame::OpenGLShader>(m_TextureSD)->UploadUniformInt("u_Texture", 0);
 
 	}
 
@@ -149,7 +152,7 @@ public:
 
 
 		std::dynamic_pointer_cast<QGame::OpenGLShader>(m_SquareSD)->Bind();
-		std::dynamic_pointer_cast<QGame::OpenGLShader>(m_SquareSD)->UploadUinformFloat3("u_Color", m_SqureColor);
+		std::dynamic_pointer_cast<QGame::OpenGLShader>(m_SquareSD)->UploadUniformFloat3("u_Color", m_SqureColor);
 
 		//QGame::Renderer::Submit(m_Shader, m_VertexArray);
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
@@ -197,7 +200,8 @@ private:
 class Sanbox :public QGame::Application {
 public:
 	Sanbox() {
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 	~Sanbox() {}
 };

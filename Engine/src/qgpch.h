@@ -9,8 +9,9 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
-#include <QGame/Core/Log.h>
 
+#include <QGame/Core/Log.h>
+#include <QGame/Debug/Instrument.h>
 #ifdef GAME_PLATFORM_WINDOWS
 #include<Windows.h>
 #endif 
