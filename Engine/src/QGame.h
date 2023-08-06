@@ -22,6 +22,7 @@
 #include "QGame/Renderer/Buffer.h"
 #include "QGame/Renderer/VertexArray.h"
 #include "QGame/Renderer/Texture.h"
+#include "QGame/Renderer/SubTexture2D.h"
 		 
 #include "QGame/Renderer/OrthgraphicCamera.h"
 #include "QGame/Renderer/OrthographicCameraController.h"

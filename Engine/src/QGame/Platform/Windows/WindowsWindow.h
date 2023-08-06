@@ -25,8 +25,7 @@ namespace QGame {
 		void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override; // 设置是否开启垂直同步 VSync = 垂直同步
 		bool IsVSync() const override;
-
-
+		
 		virtual void* GetNativeWindow()const { return m_Window; }
 	private:
 		virtual void Init(const WindowProps& props);

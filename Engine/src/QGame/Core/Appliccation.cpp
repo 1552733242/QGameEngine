@@ -31,7 +31,7 @@ namespace QGame {
 	{
 	
 		while (m_Running) {
-
+			
 			float time = (float)glfwGetTime(); 
 			Timestep timestep = time - m_LastFramTime;
 			m_LastFramTime = time;
@@ -40,7 +40,7 @@ namespace QGame {
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate(timestep);
 			}
-
+			
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)

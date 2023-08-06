@@ -1,9 +1,12 @@
 #pragma once
 
-#include "D:\QGameEngine\QGameEngine\Engine\vendor_src\glm\glm\glm.hpp"
+#include <glm/glm.hpp>
 
 
 namespace QGame {
+
+
+	
 
 	class OrthographicCamera 
 	{

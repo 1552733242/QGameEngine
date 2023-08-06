@@ -6,7 +6,7 @@ namespace QGame {
 	class GAME_API Input {
 	public:
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
-		inline static bool IsMousePressed(int button) { return s_Instance->IsMousePressed(button); }
+		inline static bool IsMousePressed(int button) { return s_Instance->IsMousePressedImpl(button); }
 
 		inline static float GetMouseX() { return s_Instance->GetMouseXImpl(); }
 		inline static float GetMouseY() { return s_Instance->GetMouseYImpl(); }
