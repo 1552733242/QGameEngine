@@ -3,7 +3,7 @@
 #include "WindowsWindow.h"
 #include "QGame/Core/Log.h"
 #include "QGame/Core/Core.h"
-#include "QGame/Events/AppliccationEvent.h"
+#include "QGame/Events/ApplicationEvent.h"
 #include "QGame/Events/KeyEvent.h"
 #include "QGame/Events/MouseEvent.h"
 #include "QGame/Platform/OpenGL/OpenGLContext.h"
@@ -14,12 +14,7 @@ namespace QGame {
 	{
 		QG_CORE_ERROR("GLFW Error {0} {1}", error, desciption);
 	}
-	Window* Window::Create(const WindowProps& props) 
-	{
 
-		return new WindowsWindow(props);
-	}
-	
 	WindowsWindow::~WindowsWindow()
 	{
 		Shutdown();

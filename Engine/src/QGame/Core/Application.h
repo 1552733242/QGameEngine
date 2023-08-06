@@ -3,19 +3,23 @@
 #include "Window.h"
 #include "LayerStack.h"
 #include "QGame/ImGui/ImGuiLayer.h"
-#include "QGame/Events/AppliccationEvent.h"
+#include "QGame/Events/ApplicationEvent.h"
 #include "QGame/Core/Timestep.h"
 namespace QGame {
 
 	class Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "QGame");
 		~Application();
 		void Run();
 		void OnEvent(Event& e);
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
+		void Close();
+
+		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
+
 		inline Window& GetWindow() { return *m_Window; }
 		inline static Application& Get() { return *s_Instance; }
 	private:

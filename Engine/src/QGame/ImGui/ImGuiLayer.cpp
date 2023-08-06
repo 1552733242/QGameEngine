@@ -4,7 +4,7 @@
 #include "backends/imgui_impl_glfw.h"
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
-#include "QGame/Core/Appliccation.h"
+#include "QGame/Core/Application.h"
 
 namespace QGame {
 
@@ -12,7 +12,7 @@ namespace QGame {
 
 	}
 	ImGuiLayer::~ImGuiLayer() {
-
+		
 	}
 
 	void ImGuiLayer::OnAttach()
@@ -49,6 +49,15 @@ namespace QGame {
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
+	}
+
+	void ImGuiLayer::OnEvent(Event& e)
+	{
+		if (m_BlockEvents) {
+			ImGuiIO& io = ImGui::GetIO();
+			e.m_Handled |= e.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			e.m_Handled |= e.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		}
 	}
 
 	void ImGuiLayer::OnImGuiRender()

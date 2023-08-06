@@ -42,8 +42,9 @@ namespace QGame {
 			return GetCategoryFlags() & category;
 		}
 		inline bool IsHandled() { return m_Handled; }
+		bool m_Handled = false;
 	protected:
-		bool m_Handled = false;//
+	
 	};
 	class EventDispatcher {
 		template <typename T>

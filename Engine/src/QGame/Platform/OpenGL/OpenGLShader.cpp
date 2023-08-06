@@ -64,6 +64,10 @@ namespace QGame {
 	void OpenGLShader::SetInt(const std::string& name, const int& value) {
 		UploadUniformInt(name, value);
 	}
+	void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count)
+	{
+		UploadUniformIntArray(name, values, count);
+	}
 	void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& matrix) {
 		UploadUniformMat3(name, matrix);
 	}
@@ -76,6 +80,11 @@ namespace QGame {
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1i(location, value);
+	}
+	void OpenGLShader::UploadUniformIntArray(const std::string& name, int* values, uint32_t count)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1iv(location, count, values);
 	}
 	void OpenGLShader::UploadUniformFloat(const std::string& name, const float& value)
 	{

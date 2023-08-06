@@ -1,7 +1,7 @@
 workspace "QGameEngine"
 	architecture "x64"
 	
-	startproject "SandBox"
+	startproject "Sandbox"
 	configurations
 	{
 		"Debug",
@@ -20,6 +20,9 @@ IncludeDir["GLFW"] = "%{prj.name}/vendor/GLFW/include"
 IncludeDir["imgui"] = "%{prj.name}/vendor_src/imgui"
 IncludeDir["glm"] = "%{prj.name}/vendor_src/glm"
 IncludeDir["stb_image"] = "%{prj.name}/vendor_src/stb_image"
+IncludeDir["entt"] = "%{prj.name}/vendor_src/entt"
+
+
 
 LibDir["GLFW"] = "%{prj.name}/vendor/GLFW"
 LibDir["GLAD"] = "%{prj.name}/vendor/GLAD"
@@ -57,6 +60,7 @@ project "Engine"
 		"%{IncludeDir.GLAD}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}",
 	}
 	libdirs{
 		"%{LibDir.GLFW}",
@@ -113,7 +117,56 @@ project "Sandbox"
 		"Engine/src",
 		"Engine/vendor_src/glm",
 		"Engine/vendor_src/imgui",
-		"Sandbox/src"
+		"Engine/vendor_src/entt",
+	}
+
+	links{
+		"Engine" 
+	}
+
+	filter "system:windows"
+		systemversion "10.0"
+
+		defines{
+			"GAME_PLATFORM_WINDOWS"
+		}
+
+
+		
+	filter "configurations:Debug"
+		defines "QG_DEBUG"
+		runtime	"Debug" 
+		symbols "on"
+    filter "configurations:Release"
+		defines "QG_RELEASE"
+		runtime	"Release"
+		symbols "on"
+	filter "configurations:Dist"
+		defines "QG_DIST"
+		runtime	"Release"
+		symbols "on"
+
+project "Editor"
+	location "Editor"
+	kind "ConsoleApp" 
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+
+	targetdir("bin/" .. outputdir .. "/%{prj.name}")
+	objdir   ("Build/" .. outputdir .. "/%{prj.name}")
+	files{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp",
+	}
+
+	includedirs{
+		"Engine/vendor/spdlog/include",
+		"Engine/src",
+		"Engine/vendor_src/glm",
+		"Engine/vendor_src/imgui",
+		"Engine/vendor_src/entt",
 	}
 
 	links{

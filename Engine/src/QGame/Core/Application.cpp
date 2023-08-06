@@ -1,6 +1,6 @@
 #include "qgpch.h"
 #include <GLFW/glfw3.h>
-#include "QGame/Core/Appliccation.h"
+#include "QGame/Core/Application.h"
 #include "QGame/Core/Input.h"
 #include "QGame/Renderer/Renderer.h"
 
@@ -10,11 +10,11 @@ namespace QGame {
 	Application* Application::s_Instance = nullptr;
 
 
-	Application::Application() 
+	Application::Application(const std::string& name)
 	{
 		GAME_CORE_ASSERT(!s_Instance, "App	lication already exit");
 		s_Instance = this;
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(name)));
 		m_Window->SetEventCallback(QG_BIND_EVENT_FN(Application::OnEvent));
 		
 		Renderer::Init();
@@ -31,7 +31,7 @@ namespace QGame {
 	{
 	
 		while (m_Running) {
-
+			
 			float time = (float)glfwGetTime(); 
 			Timestep timestep = time - m_LastFramTime;
 			m_LastFramTime = time;
@@ -40,7 +40,7 @@ namespace QGame {
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate(timestep);
 			}
-
+			
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
@@ -90,6 +90,11 @@ namespace QGame {
 	void Application::PushOverlay(Layer* layer) {
 		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach();
+	}
+
+	void Application::Close()
+	{
+		m_Running = false;
 	}
 
 
