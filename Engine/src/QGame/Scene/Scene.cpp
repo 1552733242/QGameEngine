@@ -15,7 +15,9 @@ namespace QGame {
 	Scene::~Scene()
 	{
 	}
-	
+	void Scene::DestoryEntity(Entity entity) {
+		m_Registry.destroy(entity);
+	}
 	Entity Scene::CreateEntity(const std::string& name)
 	{
 		Entity entity = { m_Registry.create(),this };
@@ -50,15 +52,8 @@ namespace QGame {
 				}
 				nsc.Instance->OnUpdate(ts);
 
-				});
-
-			
-			
+				});		
 		}
-
-
-
-
 		Camera* mainCamera = nullptr;
 		glm::mat4 cameratransform ;
 		{
@@ -84,5 +79,33 @@ namespace QGame {
 			Renderer2D::EndScene();
 
 		}
+	}
+
+	template<typename T>
+	void Scene::OnComponentAdd(Entity entity, T& component)
+	{
+		static_assert(false);
+	}
+	template<>
+	void Scene::OnComponentAdd<TransformComponent>(Entity entity, TransformComponent& component)
+	{
+
+	}
+	template<>
+	void Scene::OnComponentAdd<CameraComponent>(Entity entity, CameraComponent& component)
+	{
+		component.Camera.SetViewportSize(m_ViewportWidth, m_ViewportHeight);
+	}
+	template<>
+	void Scene::OnComponentAdd<SpriteRendererComponent>(Entity entity, SpriteRendererComponent& component)
+	{
+	}
+	template<>
+	void Scene::OnComponentAdd<NativeScriptComponent>(Entity entity, NativeScriptComponent& component)
+	{
+	}
+	template<>
+	void Scene::OnComponentAdd<TagComponent>(Entity entity, TagComponent& component)
+	{
 	}
 }
